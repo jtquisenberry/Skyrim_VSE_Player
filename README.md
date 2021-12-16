@@ -31,7 +31,7 @@ Python 3.7
 
 This application works with Alexa on Android. 
 
-I running on a Pixel 4 emulator. The emulator can be downloaded, installed, and launched using Android Studio. 
+I am running on a Pixel 4 emulator. The emulator can be downloaded, installed, and launched using Android Studio. 
 
 # PC
 
