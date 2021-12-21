@@ -3,17 +3,21 @@ import time
 from datetime import datetime
 import logging
 import os
+import re
+from collections import OrderedDict
+from skyrimvsep.enemies import enemies_list
+from skyrimvsep.shouts import shouts_list
 
-OUT_FILE = r'd:\projects\skyrim.txt'
-f = open(OUT_FILE, 'a+', encoding='utf-8')
-logging.basicConfig(filename='skyrim_errors.log', format='%(asctime)s %(levelname)-8s %(message)s', level=logging.WARNING, datefmt='%Y-%m-%d %H:%M:%S')
+
 
 command_count = 1
 
 
 setting = ''
 
-enemies = {'Arch Necromancer': 'Shout', 'Adoring Fan': 'Weapon', 'Ancient Dragon': 'Shout',
+# We are using an OrderedDict so that specific enemy types, such as "Ancient Dragon" are tested before general
+# enemy types, such as "Dragon".
+enemies = OrderedDict({'Arch Necromancer': 'Shout', 'Adoring Fan': 'Weapon', 'Ancient Dragon': 'Shout',
            'Death Hound': 'Weapon', 'Dragon Priest': 'Weapon',
            'Dremora Markynaz': 'Shout', 'Dremora Valkynaz': 'Shout',
            'Elder Dragon': 'Shout', 'Forsworn Ravager': 'Weapon',
@@ -26,8 +30,7 @@ enemies = {'Arch Necromancer': 'Shout', 'Adoring Fan': 'Weapon', 'Ancient Dragon
            'Dragon': 'Shout', 'Draugr': 'Shout',
            'Dremora': 'Shout', 'Electromancer': 'Shout', 'Falmer': 'Shout', 'Forsworn': 'Weapon', 'Giant': 'Shout',
            'Mage': 'Shout', 'Mudcrab': 'Weapon', 'Pyromancer': 'Shout', 'Thalmor': 'Shout', 'Troll': 'Weapon',
-           'Vampire': 'Shout', 'Werewolf': 'Weapon', 'Wolf': 'Weapon',
-           }
+           'Vampire': 'Shout', 'Werewolf': 'Weapon', 'Wolf': 'Weapon'})
 paths = ['Black Iron Gate', 'Broken Open Gate', 'Cobwebbed Passageway', 'Crumbling Staircase',
          'Decoratively Carved Door', 'Definitley Not Booby Trapped Hallway', 'Dimly-Lit Hallway',
          'Foul Smelling Hallway', 'Half-Collapsed Archway', 'Heavy Wooden Door', 'Hidden Staircase',
@@ -52,7 +55,12 @@ confirmations = ['face the peril ahead', 'charge into danger', 'wish to proceed'
 
 
 class SkyrimVSEPlayer():
-    def __init__(self):
+    def __init__(self, outfile='skyrim.txt'):
+        self.outfile = outfile
+        self.my_outfile = open(self.outfile, 'a+', encoding='utf-8')
+        logging.basicConfig(filename='skyrim_errors.log', format='%(asctime)s %(levelname)-8s %(message)s',
+                            level=logging.WARNING, datefmt='%Y-%m-%d %H:%M:%S')
+        
         self.enemies = enemies
         self.paths = paths
         self.locations = locations
@@ -75,6 +83,19 @@ class SkyrimVSEPlayer():
         self.shout_level = 1
         self.spell_level = 1
         self.weapon_level = 1
+        self.new_shout = 'Unrelenting Force'
+        self.new_spell = 'Flames'
+        self.new_weapon = 'Dagger'
+        self.new_enemy = ''
+        self.current_enemy = ''
+        self.current_weapon = ''
+        self.current_shout = ''
+        self.current_spell = ''
+
+        self.enemy_dict = {}
+        self.spell_dict = {}
+        self.shout_dict = {}
+        self.weapon_dict = {}
 
         self.high_level = False
 
@@ -117,12 +138,11 @@ class SkyrimVSEPlayer():
             # Higher index value means lower on the screen.
             last_texts.sort(key=lambda x: x[2])
 
-
             '''
             # Wait and then see if an additional response has appeared on the screen.
             # I have only ever observed one additional response; so it can be appended without
             # aligning the current and previous responses.
-            # Two seconds is not sufficient. 
+            # Two seconds was not sufficient in my tests. 
             '''
             time.sleep(3.0)
             last_responses2 = self.d(className="android.widget.TextView", resourceId="com.amazon.dee.app:id/alexa_response")
@@ -187,11 +207,11 @@ class SkyrimVSEPlayer():
             time.sleep(10)
 
     def _setup_files(self):
-        if os.path.exists(OUT_FILE):
-            with open(OUT_FILE, "r", encoding="utf-8") as f2:
+        if os.path.exists(self.outfile):
+            with open(self.outfile, "r", encoding="utf-8") as f2:
                 for line in f2:
+                    line_chunks = re.split("\t", line)
                     if "Level " in line:
-                        import re
                         matches = re.finditer(r'Level ([0-9]+)', line)
                         for match in matches:
                             level = match.group(1)
@@ -201,17 +221,41 @@ class SkyrimVSEPlayer():
                                 self.shout_level = int(level)
                             else:
                                 self.spell_level = int(level)
+                    if line_chunks[1] in ("Enemy", "Path", "Dungeon"):
+                        self.current_enemy = self._get_enemy_from_text(line)
 
-            if self.shout_level + self.spell_level + self.weapon_level >= 144:
+            if self.shout_level + self.spell_level + self.weapon_level >= 143:
                 self.high_level = True
         else:
-            f.write("Timestamp\tSetting\tRequest\tShout\tSpell\tWeapon\tResponse\n")
-            f.flush()
+            self.my_outfile.write("Timestamp\tSetting\tRequest\tShout\tSpell\tWeapon\tResponse\n")
+            self.my_outfile.flush()
         return True
+
+    def _get_enemy_from_text(self, text):
+        # This function could have been written to parse enemy names from text, but it is more
+        # error-resistant to cycle through the list of all enemy names.
+        # The goal is to find the enemy with the longest name to avoid selecting a generic type, such as
+        # "Dragon", rather than a specific type, such as "Ancient Dragon".
+        possible_enemies = []
+        for enemy in enemies_list:
+            if enemy in text:
+                possible_enemies.append(enemy)
+        possible_enemies.sort(key=lambda x: len(x))
+        if len(possible_enemies) > 0:
+            self.current_enemy = possible_enemies[-1]
+            if self.current_enemy not in self.enemy_dict:
+                self.enemy_dict[self.current_enemy] = self.shout_level + self.spell_level + self.weapon_level
+        return self.current_enemy
+
+    def _get_shout_from_text(self, text):
+        possible_shouts = []
+        for shout in shouts_list:
+            if shout in text:
+                possible_shouts.append(shout)
 
     def start(self):
         print("STARTING")
-        a = self._setup_files()
+        self._setup_files()
 
         while True:
             current_time = datetime.now()
@@ -219,8 +263,8 @@ class SkyrimVSEPlayer():
             self.current_time_string = str(current_time).replace(":", "_").replace(" ", "_")[:19]
             #self.d.screenshot(r'screens\\' + self.current_time_string + ".jpg")
 
-            f.write(str(current_time) + "\t")
-            f.flush()
+            self.my_outfile.write(str(current_time) + "\t")
+            self.my_outfile.flush()
             elapsed = current_time - self.start_time
             print("ELAPSED TIME:", elapsed, "CURRENT TIME", current_time)
             if elapsed.total_seconds() >= 360000:
@@ -234,8 +278,8 @@ class SkyrimVSEPlayer():
             responses = [x for x in last_texts if x[1] == "response"]
 
             if not len(responses) > 0:
-                f.write("\t\t\n")
-                f.flush()
+                self.my_outfile.write("\t\t\n")
+                self.my_outfile.flush()
                 self._handle_alexa_home_screen()
                 continue
 
@@ -277,7 +321,7 @@ class SkyrimVSEPlayer():
                         command = "Shout"
                         print(text)
 
-                    #command = "Shout"
+                    command = "Spell"
                 elif 'which do you choose' in text.lower():
                     setting = "Path"
                     command = None
@@ -335,7 +379,7 @@ class SkyrimVSEPlayer():
 
             # Update level
             if "Level " in printable_text:
-                import re
+                #import re
                 matches = re.finditer(r'Level ([0-9]+)', printable_text)
                 for match in matches:
                     level = match.group(1)
@@ -350,26 +394,41 @@ class SkyrimVSEPlayer():
             if "cast aside your old weapon" in printable_text:
                 matches = re.finditer(r"find a (.*?) , and cast aside your old weapon", printable_text)
                 for match in matches:
-                    weapon = match.group(1)
+                    self.new_weapon = match.group(1)
 
             # Update shout
             if "You now command" in printable_text:
                 matches = re.finditer(r"You now command (.*?)\.", printable_text)
                 for match in matches:
-                    weapon = match.group(1)
+                    self.new_shout = match.group(1)
+
+            if '!' in printable_text[:25]:
+                matches = re.finditer(r'^([A-Z].{1,25}!)', printable_text[:25])
+                for match in matches:
+                    self.current_shout = match.group(1)
 
             # Update spell
             if printable_text[0:4] == "Your ":
-                matches = re.finditer(r"Your ([A-Z][a-z]* ){1, 3}", printable_text)
+                matches = re.finditer(r"Your ([A-Z][a-z]* ){1,3}", printable_text)
                 chunks = []
                 for match in matches:
                     chunk = match.group(1)
                     chunks.append(chunk.strip())
-                    spell = ' '.join(chunks)
+                    self.new_spell = ' '.join(chunks)
 
-            if setting == "Enemy":
-                pass
-
+            if setting in ("Enemy", "Path", "Dungeon"):
+                possible_enemies = []
+                from skyrimvsep.enemies import enemies_list
+                for enemy in enemies_list:
+                    if enemy in printable_text:
+                        possible_enemies.append(enemy)
+                possible_enemies.sort(key=lambda x: len(x))
+                if len(possible_enemies) > 0:
+                    self.current_enemy = possible_enemies[-1]
+                    if self.current_enemy not in self.enemy_dict:
+                        self.enemy_dict[self.current_enemy] = self.shout_level + self.spell_level + self.weapon_level
+            else:
+                self.current_enemy = ''
 
 
             if printable_text:
@@ -378,10 +437,21 @@ class SkyrimVSEPlayer():
             out_line = setting + "\t" + str(command) + "\t" + str(self.shout_level) + "\t" + \
                 str(self.spell_level) + "\t" + str(self.weapon_level) + "\t" + printable_text
 
+            out_line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}'\
+                .format(setting, str(command), str(self.shout_level), self.spell_level, self.weapon_level,
+                        self.new_shout, self.current_shout, self.new_spell, self.current_spell, self.new_weapon, self.current_enemy, self.new_enemy,
+                        self.current_enemy, printable_text)
+
             print(out_line)
-            print(self.special_text)
-            f.write(out_line + "\n")
-            f.flush()
+            # print(self.special_text)
+            self.my_outfile.write(out_line + "\n")
+            self.my_outfile.flush()
+
+            self.new_shout = ''
+            self.new_spell = ''
+            self.new_weapon = ''
+            self.current_shout = ''
+
 
             if self.shout_level + self.spell_level + self.weapon_level >= 143:
                 print("LEVEL BREAK 1")
@@ -400,8 +470,8 @@ class SkyrimVSEPlayer():
                 out_line = self.current_time_string + "\t" + "KILL SCREEN" + "\t" + str(command) + "\t" + \
                            str(self.shout_level) + "\t" + \
                            str(self.spell_level) + "\t" + str(self.weapon_level) + "\t" + printable_text
-                f.write(out_line + "\n")
-                f.flush()
+                self.my_outfile.write(out_line + "\n")
+                self.my_outfile.flush()
                 break
             a = 1
 
@@ -409,7 +479,7 @@ class SkyrimVSEPlayer():
             #    break
             #self.command_count += 1
 
-        f.close()
+        self.my_outfile.close()
 
         end_time = datetime.now()
         print(end_time - self.start_time)
