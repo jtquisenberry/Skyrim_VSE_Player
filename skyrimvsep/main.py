@@ -67,7 +67,7 @@ class SkyrimVSEPlayer():
             headers = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n"\
                 .format("Timestamp", "Setting", "Command", "ShoutLevel", "SpellLevel", "WeaponLevel",
                         "NewShout", "NewShout2", "CurrentShout", "NewSpell", "CurrentSpell", "NewWeapon", "CurrentWeapon",
-                        "NewEnemy", "CurrentWeapon2", "Dialog")
+                        "NewEnemy", "CurrentEnemy", "Dialog")
             self.my_outfile.write(headers)
             self.my_outfile.flush()
         logging.basicConfig(filename='skyrim_errors.log', format='%(asctime)s %(levelname)-8s %(message)s',
