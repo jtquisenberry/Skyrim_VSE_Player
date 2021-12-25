@@ -57,7 +57,19 @@ confirmations = ['face the peril ahead', 'charge into danger', 'wish to proceed'
 class SkyrimVSEPlayer():
     def __init__(self, outfile='skyrim.txt'):
         self.outfile = outfile
+
+        outfile_exists = True
+        if not os.path.exists(self.outfile):
+            outfile_exists = False
+
         self.my_outfile = open(self.outfile, 'a+', encoding='utf-8')
+        if not outfile_exists:
+            headers = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n"\
+                .format("Timestamp", "Setting", "Command", "ShoutLevel", "SpellLevel", "WeaponLevel",
+                        "NewShout", "NewShout2", "CurrentShout", "NewSpell", "CurrentSpell", "NewWeapon", "CurrentWeapon",
+                        "NewEnemy", "CurrentWeapon2", "Dialog")
+            self.my_outfile.write(headers)
+            self.my_outfile.flush()
         logging.basicConfig(filename='skyrim_errors.log', format='%(asctime)s %(levelname)-8s %(message)s',
                             level=logging.WARNING, datefmt='%Y-%m-%d %H:%M:%S')
         
@@ -84,6 +96,7 @@ class SkyrimVSEPlayer():
         self.spell_level = 1
         self.weapon_level = 1
         self.new_shout = 'Unrelenting Force'
+        self.new_shout2 = ''
         self.new_spell = 'Flames'
         self.new_weapon = 'Dagger'
         self.new_enemy = ''
@@ -221,7 +234,7 @@ class SkyrimVSEPlayer():
                                 self.shout_level = int(level)
                             else:
                                 self.spell_level = int(level)
-                    if line_chunks[1] in ("Enemy", "Path", "Dungeon"):
+                    if line_chunks[1] in ("Enemy", "Path", "Dungeon", "Exit"):
                         self.current_enemy = self._get_enemy_from_text(line)
 
             if self.shout_level + self.spell_level + self.weapon_level >= 143:
@@ -321,7 +334,10 @@ class SkyrimVSEPlayer():
                         command = "Shout"
                         print(text)
 
-                    command = "Spell"
+                    if self.shout_level < 99:
+                        command = "Shout"
+                    else:
+                        command = "Weapon"
                 elif 'which do you choose' in text.lower():
                     setting = "Path"
                     command = None
@@ -365,10 +381,7 @@ class SkyrimVSEPlayer():
             else:
                 command = self.special_command
 
-            text_box = self.d(className="android.widget.EditText", resourceId="com.amazon.dee.app:id/input_text")
-            if text_box.count < 1:
-                continue
-            text_box[0].set_text(command)
+            # text_box
 
             if "find yourself at the cave's entrance" in text or 'loops back' in text:
                 a = 1
@@ -406,6 +419,9 @@ class SkyrimVSEPlayer():
                 matches = re.finditer(r'^([A-Z].{1,25}!)', printable_text[:25])
                 for match in matches:
                     self.current_shout = match.group(1)
+                    if self.current_shout not in self.shout_dict:
+                        self.shout_dict[self.current_shout] = self.shout_level
+                        self.new_shout2 = self.current_shout
 
             # Update spell
             if printable_text[0:4] == "Your ":
@@ -416,7 +432,7 @@ class SkyrimVSEPlayer():
                     chunks.append(chunk.strip())
                     self.new_spell = ' '.join(chunks)
 
-            if setting in ("Enemy", "Path", "Dungeon"):
+            if setting in ("Enemy", "Path", "Dungeon", "Exit"):
                 possible_enemies = []
                 from skyrimvsep.enemies import enemies_list
                 for enemy in enemies_list:
@@ -427,6 +443,7 @@ class SkyrimVSEPlayer():
                     self.current_enemy = possible_enemies[-1]
                     if self.current_enemy not in self.enemy_dict:
                         self.enemy_dict[self.current_enemy] = self.shout_level + self.spell_level + self.weapon_level
+                        self.new_enemy = self.current_enemy
             else:
                 self.current_enemy = ''
 
@@ -437,10 +454,10 @@ class SkyrimVSEPlayer():
             out_line = setting + "\t" + str(command) + "\t" + str(self.shout_level) + "\t" + \
                 str(self.spell_level) + "\t" + str(self.weapon_level) + "\t" + printable_text
 
-            out_line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}'\
+            out_line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}'\
                 .format(setting, str(command), str(self.shout_level), self.spell_level, self.weapon_level,
-                        self.new_shout, self.current_shout, self.new_spell, self.current_spell, self.new_weapon, self.current_enemy, self.new_enemy,
-                        self.current_enemy, printable_text)
+                        self.new_shout, self.new_shout2, self.current_shout, self.new_spell, self.current_spell, self.new_weapon,
+                        self.current_weapon, self.new_enemy, self.current_enemy, printable_text)
 
             print(out_line)
             # print(self.special_text)
@@ -448,9 +465,11 @@ class SkyrimVSEPlayer():
             self.my_outfile.flush()
 
             self.new_shout = ''
+            self.new_shout2 = ''
             self.new_spell = ''
             self.new_weapon = ''
             self.current_shout = ''
+            self.new_enemy = ''
 
 
             if self.shout_level + self.spell_level + self.weapon_level >= 143:
@@ -459,8 +478,18 @@ class SkyrimVSEPlayer():
 
             time.sleep(2.0)
 
-            send_button = self.d(className="android.widget.FrameLayout", resourceId="com.amazon.dee.app:id/send_button")
-            send_button.click()
+            try:
+
+                text_box = self.d(className="android.widget.EditText", resourceId="com.amazon.dee.app:id/input_text")
+                if text_box.count < 1:
+                    continue
+                text_box[0].set_text(command)
+
+                send_button = self.d(className="android.widget.FrameLayout", resourceId="com.amazon.dee.app:id/send_button")
+                send_button.click()
+            except u2.exceptions.UiObjectNotFoundError as uonfe:
+                logging.error(uonfe.message)
+                self._handle_alexa_home_screen()
 
             time.sleep(4.0)
 
