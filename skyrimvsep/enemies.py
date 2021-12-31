@@ -123,5 +123,10 @@ enemies_list = [
     'Vampire Nightstalker',
     'Werewolf',
     'Wispmother',
-    'Wolf'
+    'Wolf',
+    'Forsworn pillager',
+    "It's a bear!",
+    'deranged Khajiit',
+    'bloodthirsty vampire',
+    'skeleton warlock'
 ]

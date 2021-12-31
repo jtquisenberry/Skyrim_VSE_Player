@@ -1,9 +1,11 @@
 import uiautomator2 as u2
+from ppadb.client import Client
 import time
 from datetime import datetime
 import logging
 import os
 import re
+import traceback
 from collections import OrderedDict
 from skyrimvsep.enemies import enemies_list
 from skyrimvsep.shouts import shouts_list
@@ -57,6 +59,9 @@ confirmations = ['face the peril ahead', 'charge into danger', 'wish to proceed'
 class SkyrimVSEPlayer():
     def __init__(self, outfile='skyrim.txt'):
         self.outfile = outfile
+        self.serial = 'emulator-5554'
+        self.host = '127.0.0.1'
+        self.port = 5037
 
         outfile_exists = True
         if not os.path.exists(self.outfile):
@@ -66,8 +71,8 @@ class SkyrimVSEPlayer():
         if not outfile_exists:
             headers = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n"\
                 .format("Timestamp", "Setting", "Command", "ShoutLevel", "SpellLevel", "WeaponLevel",
-                        "NewShout", "NewShout2", "CurrentShout", "NewSpell", "CurrentSpell", "NewWeapon", "CurrentWeapon",
-                        "NewEnemy", "CurrentEnemy", "Dialog")
+                        "NewShout", "NewShout2", "CurrentShout", "NewSpell", "CurrentSpell", "NewWeapon",
+                        "CurrentWeapon", "NewEnemy", "CurrentEnemy", "Dialog")
             self.my_outfile.write(headers)
             self.my_outfile.flush()
         logging.basicConfig(filename='skyrim_errors.log', format='%(asctime)s %(levelname)-8s %(message)s',
@@ -106,9 +111,9 @@ class SkyrimVSEPlayer():
         self.current_spell = ''
 
         self.enemy_dict = {}
-        self.spell_dict = {}
-        self.shout_dict = {}
-        self.weapon_dict = {}
+        self.spell_dict = {"Flames": 1}
+        self.shout_dict = {"Fus!": 1}
+        self.weapon_dict = {"Dagger": 1}
 
         self.high_level = False
 
@@ -180,6 +185,7 @@ class SkyrimVSEPlayer():
         except Exception as e:
             logging.error("GENERAL EXCEPTION " + str(e))
             print(e)
+            self._handle_alexa_home_screen()
 
         return last_texts
 
@@ -200,6 +206,12 @@ class SkyrimVSEPlayer():
     def _handle_alexa_home_screen(self):
         time.sleep(30)
 
+        # Check System UI failure
+        system_ui_failure = self.d(className="android.widget.TextView", resourceId="android:id/alertTitle")
+        if system_ui_failure.count > 0:
+            if system_ui_failure[0].info['text'] == "System UI isn't responding":
+                self._reboot_phone()
+
         # Check whether we are at the Alexa home screen.
         vox_buttons = self.d(className="android.widget.ImageView", resourceId="com.amazon.dee.app:id/vox_button")
         if vox_buttons.count > 0 or vox_buttons.count <= 0:
@@ -216,10 +228,109 @@ class SkyrimVSEPlayer():
             # content-desc="Type with Alexa"
             typewriter = self.d(className="android.widget.ImageView",
                            resourceId="com.amazon.dee.app:id/home_header_twa_keyboard")
-            typewriter.click()
-            time.sleep(10)
+
+            if typewriter.count == 0:
+                self._reboot_phone()
+            try:
+                typewriter.click()
+                time.sleep(10)
+            except Exception as e3:
+                self._reboot_phone()
+
+    def _reboot_phone(self):
+        print("REBOOTING")
+        logging.error("REBOOTING")
+        adb = Client(host=self.host, port=self.port)
+        adb_device = adb.device(self.serial)
+        adb_device.reboot()
+        time.sleep(240.0)
 
     def _setup_files(self):
+        if os.path.exists(self.outfile):
+            with open(self.outfile, "r", encoding="utf-8") as f2:
+                for line in f2:
+                    line_chunks = re.split("\t", line)
+
+                    # If the line is malformed, do not collect data from it.
+                    if len(line_chunks) < 16:
+                        continue
+
+                    # Shout level
+                    if line_chunks[3].isnumeric():
+                        self.shout_level = int(line_chunks[3])
+                    else:
+                        if "Level " in line_chunks[3] and 'Shout Skill has increased' in line_chunks[3]:
+                            matches = re.finditer(r'Level ([0-9]+)', line_chunks[3])
+                            for match in matches:
+                                self.shout_level = int(match.group(1))
+
+                    # Spell level
+                    if line_chunks[4].isnumeric():
+                        self.spell_level = int(line_chunks[4])
+                    else:
+                        if "Level " in line_chunks[4] and 'Magic Skill has increased' in line_chunks[4]:
+                            matches = re.finditer(r'Level ([0-9]+)', line_chunks[4])
+                            for match in matches:
+                                self.spell_level = int(match.group(1))
+
+                    # Weapon level
+                    if line_chunks[5].isnumeric():
+                        self.weapon_level = int(line_chunks[5])
+                    else:
+                        if "Level " in line_chunks[5] and 'Shout Skill has increased' in line_chunks[5]:
+                            matches = re.finditer(r'Level ([0-9]+)', line_chunks[5])
+                            for match in matches:
+                                self.weapon_level = int(match.group(1))
+
+                    combined_level = self.shout_level + self.spell_level + self.weapon_level
+
+                    # Current Shout
+                    if line_chunks[8] and not line_chunks[8] == "CurrentShout":
+                        self.current_shout = str(line_chunks[8])
+                        if self.current_shout not in self.shout_dict:
+                            self.shout_dict[self.current_shout] = self.shout_level
+
+                    # New Spell
+                    if line_chunks[9] and not line_chunks[9] == "NewSpell":
+                        self.new_spell = str(line_chunks[9])
+                        if self.new_spell not in self.spell_dict:
+                            self.spell_dict[self.new_spell] = self.spell_level
+
+                    # Current Spell
+                    if line_chunks[10] and not line_chunks[10] == "CurrentSpell":
+                        self.current_spell = str(line_chunks[10])
+                        if self.current_spell not in self.spell_dict:
+                            self.spell_dict[self.current_spell] = self.spell_level
+
+                    # New Weapon
+                    if line_chunks[11] and not line_chunks[11] == "NewWeapon":
+                        self.new_weapon = str(line_chunks[11])
+                        if self.new_weapon not in self.weapon_dict:
+                            self.weapon_dict[self.new_weapon] = self.weapon_level
+
+                    # Current Weapon
+                    if line_chunks[12] and not line_chunks[12] == "CurrentWeapon":
+                        self.current_weapon = str(line_chunks[12])
+                        if self.current_weapon not in self.weapon_dict:
+                            self.weapon_dict[self.current_weapon] = self.weapon_level
+
+                    # Current Enemy
+                    if line_chunks[14] and not line_chunks[14] == "CurrentEnemy":
+                        self.current_enemy = str(line_chunks[14])
+                    elif line_chunks[1] in ("Enemy", "Path", "Dungeon", "Exit"):
+                        self.current_enemy = self._get_enemy_from_text(line)
+                    if self.current_enemy and self.current_enemy not in self.enemy_dict:
+                        self.enemy_dict[self.current_enemy] = combined_level
+
+            if self.shout_level + self.spell_level + self.weapon_level >= 143:
+                self.high_level = True
+        else:
+            self.my_outfile.write("Timestamp\tSetting\tRequest\tShout\tSpell\tWeapon\tResponse\n")
+            self.my_outfile.flush()
+        return True
+
+    def _setup_files2(self):
+        # This is a legacy function.
         if os.path.exists(self.outfile):
             with open(self.outfile, "r", encoding="utf-8") as f2:
                 for line in f2:
@@ -258,6 +369,8 @@ class SkyrimVSEPlayer():
             self.current_enemy = possible_enemies[-1]
             if self.current_enemy not in self.enemy_dict:
                 self.enemy_dict[self.current_enemy] = self.shout_level + self.spell_level + self.weapon_level
+        else:
+            self.current_enemy = ''
         return self.current_enemy
 
     def _get_shout_from_text(self, text):
@@ -334,8 +447,8 @@ class SkyrimVSEPlayer():
                         command = "Shout"
                         print(text)
 
-                    if self.shout_level < 99:
-                        command = "Shout"
+                    if self.weapon_level < 99:
+                        command = "Spell"
                     else:
                         command = "Weapon"
                 elif 'which do you choose' in text.lower():
@@ -392,7 +505,6 @@ class SkyrimVSEPlayer():
 
             # Update level
             if "Level " in printable_text:
-                #import re
                 matches = re.finditer(r'Level ([0-9]+)', printable_text)
                 for match in matches:
                     level = match.group(1)
@@ -400,7 +512,7 @@ class SkyrimVSEPlayer():
                         self.weapon_level = int(level)
                     elif 'Shout Skill has increased' in printable_text:
                         self.shout_level = int(level)
-                    else:
+                    elif 'Magic Skill has increased' in printable_text:
                         self.spell_level = int(level)
 
             # Update weapon
@@ -415,8 +527,8 @@ class SkyrimVSEPlayer():
                 for match in matches:
                     self.new_shout = match.group(1)
 
-            if '!' in printable_text[:25]:
-                matches = re.finditer(r'^([A-Z].{1,25}!)', printable_text[:25])
+            if '!' in printable_text[:17]:
+                matches = re.finditer(r'^([A-Z].{1,25}!)', printable_text[:17])
                 for match in matches:
                     self.current_shout = match.group(1)
                     if self.current_shout not in self.shout_dict:
@@ -424,13 +536,13 @@ class SkyrimVSEPlayer():
                         self.new_shout2 = self.current_shout
 
             # Update spell
-            if printable_text[0:4] == "Your ":
-                matches = re.finditer(r"Your ([A-Z][a-z]* ){1,3}", printable_text)
-                chunks = []
-                for match in matches:
-                    chunk = match.group(1)
-                    chunks.append(chunk.strip())
-                    self.new_spell = ' '.join(chunks)
+            if printable_text[0:5] == "Your ":
+                matches = list(re.finditer(r"Your (([A-Z][a-z]* ){1,3})", printable_text))
+                if matches:
+                    self.current_spell = matches[0].group(1)[: -1]
+                    if self.current_spell not in self.spell_dict:
+                        self.spell_dict[self.current_spell] = self.spell_level
+                        self.new_spell = self.current_spell
 
             if setting in ("Enemy", "Path", "Dungeon", "Exit"):
                 possible_enemies = []
@@ -438,7 +550,29 @@ class SkyrimVSEPlayer():
                 for enemy in enemies_list:
                     if enemy in printable_text:
                         possible_enemies.append(enemy)
+
+                # Make corrections for specific enemies
+                if "Dragon" in possible_enemies:
+                    # Dragon is in "Dragonborn".
+                    if not re.findall(r"Dragon\b", printable_text) and not list(re.finditer(r"Dragon(?! Claw)", printable_text)):
+                        possible_enemies.remove("Dragon")
+                if "Falmer" in possible_enemies:
+                    # Falmer is in "Falmer ladder"
+                    if not list(re.finditer(r"Falmer(?! ladder)", printable_text)):
+                        possible_enemies.remove("Falmer")
+                if "It's a bear!" in possible_enemies:
+                    possible_enemies.remove("It's a bear!")
+                    possible_enemies.append("Bear")
+                if "bloodthirsty vampire" in possible_enemies:
+                    possible_enemies.remove("bloodthirsty vampire")
+                    possible_enemies.append("Vampire")
+
+                if printable_text == "You can attack with weapon, cast spell, use shout, or flee. What would you like to do?":
+                    possible_enemies.append(self.current_enemy)
+
+                possible_enemies = [x.title() for x in possible_enemies]
                 possible_enemies.sort(key=lambda x: len(x))
+
                 if len(possible_enemies) > 0:
                     self.current_enemy = possible_enemies[-1]
                     if self.current_enemy not in self.enemy_dict:
@@ -467,6 +601,7 @@ class SkyrimVSEPlayer():
             self.new_shout = ''
             self.new_shout2 = ''
             self.new_spell = ''
+            self.current_spell = ''
             self.new_weapon = ''
             self.current_shout = ''
             self.new_enemy = ''
@@ -484,6 +619,7 @@ class SkyrimVSEPlayer():
                 if text_box.count < 1:
                     continue
                 text_box[0].set_text(command)
+                time.sleep(0.5)
 
                 send_button = self.d(className="android.widget.FrameLayout", resourceId="com.amazon.dee.app:id/send_button")
                 send_button.click()
