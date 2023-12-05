@@ -303,16 +303,20 @@ class SkyrimVSEPlayer():
                             self.spell_dict[self.current_spell] = self.spell_level
 
                     # New Weapon
+                    '''
                     if line_chunks[11] and not line_chunks[11] == "NewWeapon":
-                        self.new_weapon = str(line_chunks[11])
+                        self.new_weapon = str(line_chunks[11]).strip()
                         if self.new_weapon not in self.weapon_dict:
                             self.weapon_dict[self.new_weapon] = self.weapon_level
+                    '''
 
                     # Current Weapon
+                    '''
                     if line_chunks[12] and not line_chunks[12] == "CurrentWeapon":
                         self.current_weapon = str(line_chunks[12])
                         if self.current_weapon not in self.weapon_dict:
                             self.weapon_dict[self.current_weapon] = self.weapon_level
+                    '''
 
                     # Current Enemy
                     if line_chunks[14] and not line_chunks[14] == "CurrentEnemy":
@@ -321,6 +325,15 @@ class SkyrimVSEPlayer():
                         self.current_enemy = self._get_enemy_from_text(line)
                     if self.current_enemy and self.current_enemy not in self.enemy_dict:
                         self.enemy_dict[self.current_enemy] = combined_level
+
+                    # Current Weapon 2
+                    # This block is useful to parse logs where NewWeapon was not implemented.
+                    if line_chunks[15] and "cast aside your old weapon" in line_chunks[15]:
+                        matches = list(re.finditer(r"find (a |an )*(.*), and cast aside", line_chunks[15]))
+                        if matches:
+                            self.new_weapon = matches[0].group(2).strip()
+                            if self.new_weapon not in self.weapon_dict:
+                                self.weapon_dict[self.new_weapon] = self.weapon_level
 
             if self.shout_level + self.spell_level + self.weapon_level >= 143:
                 self.high_level = True
@@ -448,9 +461,11 @@ class SkyrimVSEPlayer():
                         print(text)
 
                     if self.weapon_level < 99:
+                        command = "Weapon"
+                    elif self.weapon_level + self.spell_level + self.shout_level < 140:
                         command = "Spell"
                     else:
-                        command = "Weapon"
+                        command = "Shout"
                 elif 'which do you choose' in text.lower():
                     setting = "Path"
                     command = None
@@ -470,17 +485,31 @@ class SkyrimVSEPlayer():
                     if not command:
                         print(text)
                 elif objectives[0] in text.lower() or objectives[1] in text.lower() or objectives[2] in text.lower():
+
+                    '''
+                    if self.weapon_level + self.spell_level + self.shout_level == 145:
+                        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                        print("USE SHOUT AT LEVEL 1")
+                        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                        break
+                    '''
+
+                    #if self.high_level:
+                    #    break
+
                     setting = "Objective"
-                    if self.high_level and 'cave' in printable_text.lower():
+                    if self.high_level and not 'cave' in printable_text.lower():
                         command = "No"
                     else:
                         command = "Yes"
+                    #command = "Yes"
                 elif confirmations[0] in text.lower() or confirmations[1] in text.lower() or confirmations[2] in text.lower() or confirmations[3] in text.lower() or confirmations[4] in text.lower():
                     setting = "Confirmation"
                     if self.high_level and 'cave' in printable_text.lower():
                         command = "No"
                     else:
                         command = "Yes"
+                    command = "Yes"
                 elif 'walking in a circle' in text.lower() or "find yourself at the cave's entrance. neat!" in text.lower() or "path opens to the fort's entrance" in text.lower():
                     setting = "Exit"
                     command = "Skyrim"
@@ -517,9 +546,11 @@ class SkyrimVSEPlayer():
 
             # Update weapon
             if "cast aside your old weapon" in printable_text:
-                matches = re.finditer(r"find a (.*?) , and cast aside your old weapon", printable_text)
-                for match in matches:
-                    self.new_weapon = match.group(1)
+                matches = list(re.finditer(r"find (a |an )*(.*), and cast aside", printable_text))
+                if matches:
+                    self.new_weapon = matches[0].group(2).strip()
+                    if self.new_weapon not in self.weapon_dict:
+                        self.weapon_dict[self.new_weapon] = self.weapon_level
 
             # Update shout
             if "You now command" in printable_text:
@@ -537,9 +568,11 @@ class SkyrimVSEPlayer():
 
             # Update spell
             if printable_text[0:5] == "Your ":
-                matches = list(re.finditer(r"Your (([A-Z][a-z]* ){1,3})", printable_text))
+                # matches = list(re.finditer(r"Your (([A-Z][a-z]* ){1,3})", printable_text))
+                matches = list(re.finditer(r"Your ((conjured ){0,1}(([A-Z][a-z']* (of )*){1,3}))", printable_text))
                 if matches:
                     self.current_spell = matches[0].group(1)[: -1]
+                    self.current_spell = self.current_spell.title().replace(' Of ', ' of ')
                     if self.current_spell not in self.spell_dict:
                         self.spell_dict[self.current_spell] = self.spell_level
                         self.new_spell = self.current_spell
