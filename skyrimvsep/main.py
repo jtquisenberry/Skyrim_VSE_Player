@@ -1,11 +1,10 @@
 import uiautomator2 as u2
-from ppadb.client import Client
+import adbutils
 import time
 from datetime import datetime
 import logging
 import os
 import re
-import traceback
 from collections import OrderedDict
 from skyrimvsep.enemies import enemies_list
 from skyrimvsep.shouts import shouts_list
@@ -15,7 +14,7 @@ from skyrimvsep.shouts import shouts_list
 command_count = 1
 
 
-setting = ''
+# setting = ''
 
 # We are using an OrderedDict so that specific enemy types, such as "Ancient Dragon" are tested before general
 # enemy types, such as "Dragon".
@@ -56,12 +55,12 @@ confirmations = ['face the peril ahead', 'charge into danger', 'wish to proceed'
                  'forward on your quest', 'venture in']
 
 
-class SkyrimVSEPlayer():
-    def __init__(self, outfile='skyrim.txt'):
+class SkyrimVSEPlayer:
+    def __init__(self, serial, host, port, outfile='skyrim.txt'):
         self.outfile = outfile
-        self.serial = 'emulator-5554'
-        self.host = '127.0.0.1'
-        self.port = 5037
+        self.serial = serial
+        self.host = host
+        self.port = port
 
         outfile_exists = True
         if not os.path.exists(self.outfile):
@@ -118,6 +117,8 @@ class SkyrimVSEPlayer():
         self.high_level = False
 
     def _get_messages(self):
+        last_texts = None
+
         try:
             self.special_text = None
 
@@ -177,7 +178,7 @@ class SkyrimVSEPlayer():
             # UiSelector[CLASS=android.widget.TextView, INSTANCE=1, RESOURCE_ID=com.amazon.dee.app:id/user_request],
             # method: objInfo
             print(str(uonfe))
-            logging.error(uonfe.message)
+            logging.error(uonfe)
             time.sleep(2.0)
             #self.d.screenshot(r'screens\\' + self.current_time_string + "A" + ".jpg")
             return self._get_messages()
@@ -240,9 +241,14 @@ class SkyrimVSEPlayer():
     def _reboot_phone(self):
         print("REBOOTING")
         logging.error("REBOOTING")
-        adb = Client(host=self.host, port=self.port)
-        adb_device = adb.device(self.serial)
-        adb_device.reboot()
+
+        adb_engine = adbutils.AdbClient(host=self.host, port=self.port)
+        d = adb_engine.device(serial=self.serial)
+        d.reboot()
+
+        # adb = Client(host=self.host, port=self.port)
+        # adb_device = adb.device(self.serial)
+        # adb_device.reboot()
         time.sleep(240.0)
 
     def _setup_files(self):
@@ -386,7 +392,7 @@ class SkyrimVSEPlayer():
             self.current_enemy = ''
         return self.current_enemy
 
-    def _get_shout_from_text(self, text):
+    def _get_shout_from_text(self, text):  # noqa
         possible_shouts = []
         for shout in shouts_list:
             if shout in text:
@@ -439,7 +445,7 @@ class SkyrimVSEPlayer():
             # print(text)
             text = printable_text
 
-
+            setting = ''
             command = ''
 
             if not self.special_command:
@@ -618,9 +624,6 @@ class SkyrimVSEPlayer():
             if printable_text:
                 printable_text = printable_text.replace("\n", " ")
 
-            out_line = setting + "\t" + str(command) + "\t" + str(self.shout_level) + "\t" + \
-                str(self.spell_level) + "\t" + str(self.weapon_level) + "\t" + printable_text
-
             out_line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}'\
                 .format(setting, str(command), str(self.shout_level), self.spell_level, self.weapon_level,
                         self.new_shout, self.new_shout2, self.current_shout, self.new_spell, self.current_spell, self.new_weapon,
@@ -657,7 +660,8 @@ class SkyrimVSEPlayer():
                 send_button = self.d(className="android.widget.FrameLayout", resourceId="com.amazon.dee.app:id/send_button")
                 send_button.click()
             except u2.exceptions.UiObjectNotFoundError as uonfe:
-                logging.error(uonfe.message)
+                a = uonfe
+                logging.error(uonfe)
                 self._handle_alexa_home_screen()
 
             time.sleep(4.0)
@@ -686,7 +690,4 @@ class SkyrimVSEPlayer():
         return True
 
 
-if __name__ == '__main__':
-    svsep = SkyrimVSEPlayer()
-    ret_val = svsep.start()
-    print(str(ret_val))
+

@@ -1,8 +1,6 @@
-# Skyrim_VSE_Player
+# Skyrim VSE Player
 
-Skyrim Very Special Edition Player is a Python 3.x application to play the Amazon Alexa skill Skyrim Very Special Edition. 
-
-The first version of Skyrim VSE Player uses Alexa as a chatbot to play Skyrim VSE.
+Skyrim Very Special Edition Player is a Python 3.x application to play the Amazon Alexa skill Skyrim Very Special Edition on an Android device.
 
 
 # What is Skyrim Very Special Edition
@@ -20,26 +18,124 @@ The first version of Skyrim VSE was played using voice input. Alexa gained chatb
 https://voicebot.ai/2020/12/01/alexa-becomes-a-chatbot-you-can-now-talk-to-alexa-by-typing/
 
 
+# Usage
+
+List android devices connected to the PC.
+
+```
+> python list_devices.py
+BEGIN DEVICES
+
+Serial: emulator-5554, State: device
+
+END DEVICES
+```
+
+Set the properties of the device you want to connect to and the log file location in `skyrim_vesp.py`.
+
+``` python
+SERIAL = 'emulator-5554'
+HOST = '127.0.0.1'
+PORT = 5037
+LOG = r'D:\Projects\skyrim.txt'
+```
+
+Run Skyrim VSE Player.
+
+```
+> python skyrim_vsep.py
+STARTING
+ELAPSED TIME: 0:00:00 CURRENT TIME 2024-08-30 22:18:33.565291
+last_responses count 0
+last_requests count 0
+ELAPSED TIME: 0:01:09.308853 CURRENT TIME 2024-08-30 22:19:42.874144
+last_responses count 1
+last_requests count 0
+Startup	Skyrim	1	1	1	Unrelenting Force			Flames		Dagger				Hello, Alexa here. Happy to help. Ask me anything or search the app.
+```
+
+
 # Requirements
 
-Python 3.7
+Unless stated otherwise, these requirements assume that the user runs an emulated Android device.
+
+## Python
+
+Python 3.12
 
 ## Python Packages
-* uiautomator2
 
-# Android Device
+```
+uiautomator2==3.2.2
+adbutils==2.8.0
+```
 
-This application works with Alexa on Android. 
+## PC
 
-I am running on a Pixel 4 emulator. The emulator can be downloaded, installed, and launched using Android Studio. 
+Skyrim VSE Player must be run on a PC capable of connecting to an Android device - physical or virtual.
 
-# PC
+### Virtual
 
-This application requires a computer capable of running the Android Debug Bridge and Python 3.7. 
+Running an Android emulator requires a computer with hardware virtualization enabled. The ability to run HAXM is recommended.
 
-An Android emulator requires a computer with hardward virtualization. The ability to run HAXM is recommended.
+### Physical
 
-This application also works with a physical Android device running in debug mode and connected to a PC with a USB cable. I ran an early version of the application on a Motorola Droid Turbo (2014)
+This application also works with a physical Android device running in debug mode and connected to a PC with a USB cable. I ran an early version of the application with a Motorola Droid Turbo (2014). The Android device must be configured to support USB debugging.
+
+## Android Studio
+
+Skyrim VSE Player connects to an Android device. These requirements assume that the user is running an emulated Android device using Android Studio.
+
+Android Studio may be downloaded from this location: https://developer.android.com/studio
+
+
+# Setup
+
+# Emulator Setup in Android Studio
+
+Screenshots of Android Studio show Android Studio Giraffe | 2022.3.1.
+
+Within Android Studio, open Device Manager, and click "Create Device". 
+
+![Create Device](images/android_studio_device_manager.png?raw=true "Create Device")
+
+From the list of device definitions, select a device with the Play Store. The Pixel 4 device works well.
+
+![Pixel 4 Selected](images/android_studio_configuration.png?raw=true "Pixel 4 Selected")
+
+Run the emulated device from the list of devices. After the device starts for the first time, you must logon with a Google account to access the Play Store. You may also have to verify your identity in the Play Store.
+
+![Play Store](images/play_store_login.png?raw=true "Play Store")
+
+Install the Alexa app and start it.
+
+![Alexa App](images/alexa_app.png?raw=true "Alexa App")
+
+Click the typewrite icon to access chat bot mode.
+
+![Alexa App](images/alexa_keyboard.png?raw=true "Alexa App")
+
+Alexa displays the chat dialog.
+
+![Alexa App](images/alexa_dialog.png?raw=true "Alexa App")
+
+
+
+# Credits
+
+## `adbutils`
+
+"Python adb library for adb service" is a Python library for interfacing with the Android Debug Bridge (ADB) service. It is used for listing devices and rebooting a device.
+
+* https://github.com/openatx/adbutils
+* https://pypi.org/project/adbutils/
+
+## `uiautomator2`
+
+"Python Wrapper for Android UiAutomator2 test tool" is a Python library for interfacing with the Android UI. It is used for communicating with Alexa.
+
+* https://github.com/openatx/uiautomator2
+* https://pypi.org/project/uiautomator2/
 
 
 

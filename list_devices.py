@@ -1,16 +1,18 @@
-# https://pypi.org/project/pure-python-adb/
-from ppadb.client import Client
+import adbutils
 
-HOST = '127.0.0.1'
+HOST = "127.0.0.1"
 PORT = 5037
 
-# Connect to ADB server.
-# Default is "127.0.0.1" and 5037
-adb = Client(host=HOST, port=PORT)
-devices = adb.devices()
+print("BEGIN DEVICES")
+print()
 
-print("DEVICES")
-for device in devices:
-    print(device.serial)
+adb = adbutils.AdbClient(host="127.0.0.1", port=5037)
+for info in adb.list():
+    print(f"Serial: {info.serial}, State: {info.state}")
+    # Serial: emulator-5554, State: device
 
-print("\nEND OF DEVICES")
+print()
+print("END DEVICES")
+
+# d = adb.device(serial=info.serial)
+# d.reboot()
