@@ -89,6 +89,40 @@ Skyrim VSE Player connects to an Android device. These requirements assume that 
 Android Studio may be downloaded from this location: https://developer.android.com/studio
 
 
+# Example
+
+## Log
+
+```
+Timestamp	Setting	Command	ShoutLevel	SpellLevel	WeaponLevel	NewShout	NewShout2	CurrentShout	NewSpell	CurrentSpell	NewWeapon	CurrentWeapon	NewEnemy	CurrentEnemy	Dialog
+...
+2022-01-09 21:25:13.720634	Path	Hill	1	1	98					Battleaxe				Imperial Gladiator	Your Battleaxe cleaves the Imperial Gladiator. The Imperial Gladiator falls dead. He'll never be Grand Champion now. How sad.. You survived the battle. Your health is at 100.  There are three paths forward: a root-covered hill, a stream-filled glade, and a steep hill. Which do you choose?
+```
+
+### Fields
+
+* __Timestamp__: The time at which the log message was written.
+* __Setting__: The location of the current quest.
+* __Command__: The command sent by the player.
+* __ShoutLevel__: The level of the character's Shout skill.
+* __SpellLevel__: The level of the character's Spell skill.
+* __WeaponLevel__: The level of the character's Weapon skill.
+* __NewShout__: Reports the name of a previously unseen shout.
+* __NewShout2__: Reports the name of a previously unseen shout, using a different technique.
+* __CurrentShout__: The shout used in the last command, if any.
+* __NewSpell__: Reports the name of a previously unseen spell.
+* __CurrentSpell__: The spell used in the last command, if any.
+* __NewWeapon__: Reports the name of a previously unseen weapon.
+* __CurrentWeapon__: The weapon used in the last command, if any.
+* __Dialog__: The text of the response given by Alexa.
+
+## Screenshot
+
+This screenshot shows dialog of defeating an Ascendant Necromancer.
+
+![Ascendant Necromancer](images/ascendant_necromancer.png?raw=true "Ascendant Necromancer")
+
+
 # Setup
 
 # Emulator Setup in Android Studio
