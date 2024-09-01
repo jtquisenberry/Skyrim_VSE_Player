@@ -1,0 +1,28 @@
+Shout Level	Shout
+1	Fus!
+3	Fus Roh!
+6	Fus Roh Dah!
+8	Yol!
+10	Yol Toor!
+13	Yol Toor Shul!
+15	Fo!
+17	Fo Krah!
+20	Fo Krah Diin!
+22	Ven!
+24	Ven Gaar!
+27	Ven Gaar Nos!
+29	Gaan!
+31	Gaan Lah!
+34	Gaan Lah Haas!
+36	Strun!
+38	Strun Bah!
+41	Strun Bah Qo!
+43	Ri!
+45	Ri Vaaz!
+48	Ri Vaaz Zoll!
+50	Od!
+60	Od Ah!
+70	Od Ah Viing!
+80	Hun!
+90	Hun Kaal!
+99	Hun Kaal Zoor!

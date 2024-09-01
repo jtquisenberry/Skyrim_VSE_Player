@@ -88,6 +88,11 @@ Skyrim VSE Player connects to an Android device. These requirements assume that 
 
 Android Studio may be downloaded from this location: https://developer.android.com/studio
 
+## Alexa App
+
+Skyrim VSE Player has been tested with Alexa version 2.2.436689.0. Other versions may have UI layouts not compatible with the Player. It is possible to download an APK file of that version from here: https://www.apkmirror.com/apk/amazon-mobile-llc/amazon-alexa/amazon-alexa-2-2-436689-0-release/ . 
+
+
 
 # Example
 
@@ -120,7 +125,7 @@ Timestamp	Setting	Command	ShoutLevel	SpellLevel	WeaponLevel	NewShout	NewShout2	C
 
 This screenshot shows dialog of defeating an Ascendant Necromancer.
 
-![Ascendant Necromancer](images/ascendant_necromancer.png?raw=true "Ascendant Necromancer")
+![Ascendant Necromancer](images/ascendant_necromancer.png?raw=true "Ascendant Necromancer - Alexa 2.2.585588.0")
 
 
 # Setup

@@ -1,0 +1,403 @@
+INTRO ENEMY-DEATH   E-ATTACK   E-MISS   PLAYER-DIES
+
+|-
+|{{Anchor|Ancient Dragon}}
+|25
+|Spell
+|''"Before you stands an Ancient Dragon. His cruelty and hatred for humanity has only grown over the centuries."''
+|''"Your Thu'um rips into the Ancient Dragon draining UNDEFINED life essence away., Violet rays of light surround it and UNDEFINED lifeless body drops to the ground."''
+|''"takes a swing at you with its massive claws!"''
+|''"attacks, but you leap out of the way."''
+|''"The Ancient Dragon has defeated you. It roars in triumph. So much for being the "one they fear"."''
+|-
+|{{Anchor|Ancient Vampire}}
+|16
+|Weapon
+|''"An Ancient Vampire awaits you up ahead. Just your luck. He hasn't fed in days."''
+|''"Your Lightning Rune explodes and electrocutes the Ancient Vampire. he collapses to the ground."''
+|''"drains your life essence! You take 16 damage."''
+|''"attempts to drain your life, but you bash him interrupting the attack."''
+|''"The Ancient Vampire smiles broadly as your life drains away. You will make a fine meal."''
+|-
+|{{Anchor|Apprentice Mage}}
+|
+|
+|''"An Apprentice Mage appears in front of you. he begins casting a conjuration spell, but does not seem very confident."''
+|''"he crumbles into a smoldering pile. That takes care of that."''
+|''''
+|''''
+|''''
+|-
+|{{Anchor|Arch Conjurer}}
+|12
+|Spell
+|''"You feel a Daedric aura. An Arch Conjurer stands before you, opening a portal to Oblivion."''
+|''"You tap your finger on the frozen statue before you to make sure he's dead. You are victorious."''
+|''"summons a twisting Storm Atronach to attack you!"''
+|''''
+|''"You have been defeated by the Arch Conjurer! You should know better than to go in against an Arch Conjurer when death is on the line!"''
+|-
+|{{Anchor|Arch Cryomancer}}
+|16
+|Spell
+|''"The blood in your veins suddenly turns to ice. An Arch Cryomancer begins to cast a powerful spell."''
+|''"You call the dragon Od-ah-ving to burn the Arch Cryomancer, You wince as he fried to a crisp by the dragon's breath."''
+|''"The Arch Cryomancer lobs a massive fireball towards you!"''
+|''''
+|''"You have been defeated by the Arch Cryomancer! You should know better than to go in against an Arch Cryomancer when death is on the line!."''
+|-
+|{{Anchor|Arch Electromancer}}
+|16
+|Spell
+|''"An Arch Electromancer stares you down, hands full of lightning."''
+|''"Atronach freezes the Arch Electromancer. he will never move again."''
+|''"dual casts a swirling ice storm!"''
+|''"attacks, but misses."''
+|''"You have been defeated by the Arch Electromancer! You should know better than to go in against an Arch Electromancer when death is on the line!."''
+|-
+|{{Anchor|Arch Necromancer}}
+|12
+|Spell
+|''"There's great danger ahead. All of the corpses around you suddenly start to groan and move. An Arch Necromancer is controlling them like a puppet master."''
+|''"Atronach torches the Arch Necromancer. The Arch Necromancer combusts in flames, burnt to a crisp. Well done."''
+|''"commands a Draugr army to swarm you.!"''
+|''"ommands a Draugr army to destroy you, but you avoid their attacks."''
+|''"The Arch Necromancer has defeated you. he cackles maniacally."''
+|-
+|{{Anchor|Arch Pyromancer}}
+|16
+|Spell
+|''"Your eyebrows singe and your skin burns. An Arch Pyromancer prepares to launch a fireball directly at you."''
+|''"Atronach burns the Arch Pyromancer. Magic flames engulf Arch Pyromancer. When the conflagration subsides, nothing remains."''
+|''"launches a lightning storm from his palms!"''
+|''"attacks, but misses."''
+|''"You have been defeated by the Arch Pyromancer! You should know better than to go in against an Arch Pyromancer when death is on the line!"''
+|-
+|{{Anchor|Ascendant Conjurer}}
+|
+|
+|''"A shiver runs down your spine. And it's not from the cold. An Ascendant Conjurer is making a complex hand motion in the air. This could get ugly."''
+|''"Your voice is the storm. It strikes the Ascendant Conjurer with a bolt of lightning., he writhes on the ground, sparks leaping from UNDEFINED form."''
+|''""''
+|''""''
+|''""''
+|-
+|{{Anchor|Bandit Chief}}
+|
+|
+|''"A Bandit Chief leaps out at you, clad in blood stained Nordic armor. I guess that explains his promotion."''
+|''"A tornado of deadly wind rushes from you into the Bandit Chief., he thrashes in the wind and slams back to the ground, defeated."''
+|''''
+|''''
+|''''
+|-
+|{{Anchor|Chaurus Hunter}}
+|12
+|Shout
+|''"You hear a menacing click clack sound. A fully grown Chaurus Hunter wants to rip you to shreds."''
+|''"Your War Axe viciously rends the Chaurus Hunter. Your weapon cracks the Chaurus Hunter's chitin and venomous blood seeps from its dead body."''
+|''"The Chaurus Hunter jabs you with a stinger!"''
+|''''
+|''"Razor sharp mandibles and poison spit prove too much. The Chaurus Hunter scurries back to its nest, leaving you to rot."''
+|-
+|{{Anchor|Cryomancer}}
+|14
+|Spell
+|''"The air itself turns to ice as a Cryomancer appears before you."''
+|''"The frozen Cryomancer topples over, shattering into thousands of pieces. If only you had a tumbler and some sear-ro-dilic Brandy."''
+|''"casts wall of ice, which freezes you.!"''
+|''''
+|''"A final blast of magical ice freezes you solid. The Cryomancer looks satisfied as frost chills the air."''
+|-
+|{{Anchor|Dragon Priest}}
+|25
+|Shout
+|''"A sarcophagus suddenly bursts open! A Dragon Priest levitates above it, his hands brimming with magicka."''
+|''"Your Greatsword brutally slashes the Dragon Priest. The life force sustaining the Dragon Priest fades, leaving only a pile of ash behind."''
+|''"hurls a a fireball at you!"''
+|''"hurls a a fireball at you, but you dodge the searing blast."''
+|''"The Dragon Priest hovers over you. Your life force begins to drain away, sustaining his own immortality."''
+|-
+|{{Anchor|Draugr Death Overlord}}
+|12
+|Weapon
+|''"A Draugr Death Overlord, clad in ebony, looks down at you. He looks pretty confident for a dead guy."''
+|''"A tornado of deadly wind rushes from you into the Draugr Death Overlord., it thrashes in the wind and slams back to the ground, defeated."''
+|''"pummels you with Unrelenting Force!"''
+|''"shouts, but you evade the attack."''
+|''"The undead eyes of the Draugr Death Overlord glow with undead power as you die at its hands."''
+|-
+|{{Anchor|Draugr Deathlord}}
+|10
+|Weapon
+|''"A Draugr Deathlord crawls out of a tomb ahead. Be careful! He possesses the power of the Thu'um!"''
+|''"Gorm-laith Golden-Hilt slices into the Draugr Deathlord., Your foe desperately tries to flee as Gorm-laith Golden-Hilt cuts it down."''
+|''"shouts Fo Krah Diin!"''
+|''"attacks, but you dodge aside."''
+|''"The undead eyes of the Draugr Deathlord glow with undead power as you die at its hands."''
+|-
+|{{Anchor|Draugr Wight Overlord}}
+|7
+|Weapon
+|''"A Draugr Wight Overlord awaits you."''
+|''"Fire Breath bellows from you, searing the Draugr Wight Overlord., it crumbles into a smoldering pile. That takes care of that."''
+|''"pummels you with Unrelenting Force!"''
+|''"shouts, but you evade the attack."''
+|''""''
+|-
+|{{Anchor|Dremora Markynaz}}
+|14
+|Spell
+|''"A menacing Dremora Markynaz has been summoned before you. He looks ready for battle."''
+|''"You call the dragon Od-ah-ving to burn the Dremora Markynaz, it turns to flee just as the dragon's breath reduces him to ash."''
+|''"charges towards you!"''
+|''"attacks, but you evade his maneuver."''
+|''""There could be no other end," the Dremora Markynaz intones as darkness consumes you."''
+|-
+|{{Anchor|Dremora Valkynaz}}
+|16
+|Spell
+|''"A harsh cackle breaks the silence; a Dremora Valkynaz is taunting you."''
+|''"Your Frost Cloak freezes the Dremora Valkynaz. it will never move again."''
+|''"hurls a fireball at you!"''
+|''"attacks, but misses."''
+|''""There could be no other end," the Dremora Valkynaz intones as darkness consumes you."''
+|-
+|{{Anchor|Elder Dragon}}
+|25
+|Spell
+|''"A mighty roar rends the sky and an Elder Dragon swoops down to devour you."''
+|''"Your Call of Valor summons a hero of old to smite your foe., The Elder Dragon falls in battle, instantly."''
+|''"shouts with incredible power!"''
+|''"attacks, but you use your Thu'um to Become Ethereal, evading the dragon's breath."''
+|''"The Elder Dragon has defeated you. It roars in triumph. So much for being the "one they fear"."''
+|-
+|{{Anchor|Electromancer}}
+|
+|
+|''"Static electricity cracks and pops all around you, as you face an Electromancer. Now this is a shocking development."''
+|''"Call Storm rains lightning down upon the Electromancer., he is little more than a dark smudge on the ground."''
+|''''
+|''''
+|''''
+|-
+|{{Anchor|Falmer Shadowmaster}}
+|11
+|Spell
+|''"A Falmer Shadowmaster appears, seemingly out of nowhere. He senses you and attacks!"''
+|''"Your Unrelenting Force throws the Falmer Shadowmaster back, staggering it., The Falmer Shadowmaster struggles to get up, briefly, then expires. Good riddance."''
+|''"swings its axe blindly!"''
+|''''
+|''''
+|-
+|{{Anchor|Falmer Warmonger}}
+|12
+|Spell
+|''"A Falmer Warmonger stands before you. He is the best of his kind, and victor of countless battles. Good luck."''
+|''"Fire Breath bellows from you, searing the Falmer Warmonger., it just a pile of foul-smelling ash now."''
+|''"fires a stream of lightning, shocking you to the core!"''
+|''"attacks, but you dodge its spell defty."''
+|''"The Falmer Warmonger's attack drops you to the ground. It starts dragging you by the ankle into the darkness."''
+|-
+|{{Anchor|Fire Wizard}}
+|
+|
+|''"A column of flames scorches the ground in front of you. A Fire Wizard stands before you."''
+|''"Your voice is the storm. It strikes the Fire Wizard with a bolt of lightning., he is little more than a dark smudge on the ground."''
+|''''
+|''''
+|''''
+|-
+|{{Anchor|Forsworn Briarheart}}
+|16
+|
+|''"A Forsworn Briarheart is performing a terrible ritual, and does not appreciate the interruption. He charges you, enraged!"''
+|''"Your Sword digs into the Forsworn Briarheart . The leather straps on the hulking warrior's chest snap and the briar heart falls out. He slumps over, dead for the second time."''
+|''"casts ice storm!"''
+|''"attacks, but you expertly evade his spell."''
+|''"You fall to your knees, defeated. The Forsworn Briarheart  looms over you, ready to sacrifice you to the Old Gods."''
+|-
+|{{Anchor|Forsworn Ravager}}
+|12
+|
+|''"A Forsworn Ravager lashes out at you, with a weapon that looks like it's made from human bones."''
+|''"Your Greatsword decapitates the Forsworn Ravager. The Forsworn Ravager looks up at you and promises that three more will rise in his place, right before you decapitate him."''
+|''"wildly swings his dual swords!"''
+|''"attacks, but misses."''
+|''"You fall to your knees, defeated. The Forsworn Ravager looms over you, ready to sacrifice you to the Old Gods."''
+|-
+|{{Anchor|Forsworn Warlord}}
+|14
+|Shout
+|''"A Forsworn Warlord stands before you. He's carrying what looks like a human heart in his hand."''
+|''"Your Greatsword viciously cleaves the Forsworn Warlord. The Forsworn Warlord looks up at you and promises that three more will rise in his place, right before you decapitate him."''
+|''"wildly swings his wicked sword!"''
+|''"attacks, but misses."''
+|''"You fall to your knees, defeated. The Forsworn Warlord looms over you, ready to sacrifice you to the Old Gods."''
+|-
+|{{Anchor|Frost Dragon}}
+|20
+|Spell
+|''"Ice crystals form all around you. You turn to see a Frost Dragon preparing to freeze you solid."''
+|''"Your voice summons a dragon to roast the unfortunate Frost Dragon, it turns to flee just as the dragon's breath reduces him to ash."''
+|''"blasts you with its chilling breath!"''
+|''"tries to freeze you but you dodge the attack."''
+|''"The Frost Dragon has defeated you. It roars in triumph. So much for being the "one they fear"."''
+|-
+|{{Anchor|Frost Giant}}
+|50
+|
+|''"What's that stomping? And why is the ground shaking? Uh oh. It's a Frost Giant!"''
+|''"Your Thu'um rips into the Frost Giant draining UNDEFINED life essence away., Malevolent energies kill the Frost Giant and his corpse obeys your commands briefly before turning to dust."''
+|''"pounds you with his mighty stone club!"''
+|''"swings his club but hits only dirt."''
+|''"The Frost Giant hits you so hard, even the physics engine doesn't know what to do. You fly into the air, spinning rapidly."''
+|-
+|{{Anchor|Frost Wizard}}
+|
+|
+|''"An wall of frost blocks your path. On the other side stands a Frost Wizard, ready for battle."''
+|''"A mighty dragon heeds your Thu'um, torching the Ice Wizard, he turns to flee just as the dragon's breath reduces him to ash."''
+|''''
+|''''
+|''''
+
+|-
+|{{Anchor|Ghost}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Giant}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Hagraven}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Ice Wizard}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Master Conjurer}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Master Necromancer}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Necromancer}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Pyromancer}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Snow-covered}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Spriggan Earth Mother}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Storm Atronach}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Storm Wizard}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Thalmor Justiciar}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''
+
+|-
+|{{Anchor|Wispmother}}
+|
+|
+|''""''
+|''""''
+|''""''
+|''""''
+|''""''

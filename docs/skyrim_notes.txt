@@ -1,0 +1,74 @@
+Weapon: 44
+Shout: 99
+Spell: 1
+Fully playable
+
+Inside Forest, fighting enemy
+Weapon: 44
+Shout: 99
+Spell: 3
+Cannot start new quest
+
+New quest, go to fort
+Weapon: 44
+Shout: 99
+Spell: 3
+Playable
+
+In fort
+Weapon: 44
+Shout: 99
+Spell: 5
+Made it to next room
+
+Mountain
+Weapon: 44
+Shout: 99
+Spell: 8
+advanced to next room in mountain
+
+Fort
+Weapon: 44
+Shout: 99
+Spell: 9
+Advanced to next room
+
+Fort
+Weapon: 44
+Shout: 99
+Spell: 10
+Advanced to next room
+
+Fort
+Weapon: 44
+Shout: 99
+Spell: 10
+
+skipped from 10 to 12
+Fort
+Weapon: 44
+Shout: 99
+Spell: 12
+Advanced to next room
+
+Fort
+Weapon: 44
+Shout: 99
+Spell: 13
+Advanced to next room
+
+Forest
+Weapon: 44
+Shout: 99
+Spell: 14
+Advanced to next room
+
+Fort
+Weapon: 44
+Shout: 99
+Spell: 15
+Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now.
+	Failed to go to Archway, Gate, staircase, door.
+
+
+

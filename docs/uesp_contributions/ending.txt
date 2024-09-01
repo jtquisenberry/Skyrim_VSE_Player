@@ -1,0 +1,60 @@
+===Ending===
+There is not known to be a proper conclusion to Skyrim Very Special Edition. Instead, the game fails when the character's combined Shout, Spell, and Weapon levels reach 157 and the user attempts any action. 
+
+=====Transcript=====
+
+In this example, the character's levels starts at Shout = 1, Spell = 57, Weapon = 99. While fighting a Forsworn Warlord, the Spell level increased to 58, brining the combined skill level to 157. All actions following that point, including launching the Skyrim skill, fail and terminate the skill.
+
+<pre>
+Request : Spell
+Response: Two massive trees bend into a natural arch. A Forsworn Warlord stands before you. He's carrying what looks like a human heart in his hand. You can attack with weapon, cast spell, use shout, or flee. What would you like to do?
+Request : Spell
+Response: Your Lightning Cloak shocks the Forsworn Warlord.  The Forsworn Warlord wildly swings his wicked sword! You take 14 damage. What would you like to do?
+Request : Spell
+Response: Your Whirlwind Cloak staggers the Forsworn Warlord. tossing him to the ground, dead.. You have triumphed! You have 86 health. Your Magicka swells with arcane power. Your Magic Skill has increased to Level 58. There are two paths before you: a flower-lined footpath and a barren hill. Which do you choose?
+Request : Hill
+Response: Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now
+Request : Skyrim
+Response: Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now
+</pre>
+
+
+=====Warning about Caves=====
+
+If the character is in a cave when the combined skill level reaches 146 and the character moves to a room containing an enemy, the game fails. The recommended course of action is to answer "No" when asked whether to enter a cave, starting at level 143.
+
+
+=====Transcript with a Cave=====
+
+In this example, the character entered a cave. The character's levels were at Shout = 6, Spell = 40, Weapon = 99. During the battle with the Ghost, Shout increased to Shout = 7, bringing the combined skill level to 146. After the battle, the character passed through two areas without enemies. Then, attempting to move to the next area crashed the game, stopping the Skyrim Very Special Edition skill. Unlike failure at level 157, it is possible to reenter the skill.
+
+<pre>
+Request : Shout
+Response: Fus Roh Dah! Your Unrelenting Force tosses the Ghost into the air. it crashes to the ground..  The Ghost swings at you! You take 8 damage. What would you like to do?
+Request : Shout
+Response: Fus Roh Dah! Your Unrelenting Force tosses the Ghost into the air. it crashes to the ground.. Your Thu'um grows mighty! Your Shout Skill has increased to Level 7. The Ghost swings at you! You take 8 damage. What would you like to do?
+Request : Shout
+Response: Fus Roh Dah! Unrelenting Force smashes into your foe..  The Ghost swings at you! You take 8 damage. What would you like to do?
+Request : Shout
+Response: Fus Roh Dah! Your mighty Thu'um crashes into your foe..  The Ghost attacks, but misses..
+Request : Shout
+Response: Fus Roh Dah! Your Unrelenting Force throws the Ghost back, staggering it..  The Ghost swings at you! You take 8 damage. What would you like to do?
+Request : Shout
+Response: Fus Roh Dah! Unrelenting Force smashes into your foe..  The Ghost attacks, but misses.. What would you like to do?
+Request : Shout
+Response: Fus Roh Dah! Your mighty shout slams the Ghost into the dirt., The Ghost never gets back up. That's what you get for messing with the Dovahkiin.. You are victorious. Your health is at 28.  There are three paths forward: a pitch-black tunnel, a mine cart path, and a narrow tunnel. Which do you choose?
+Request : Tunnel
+Response: You move deeper into the cave. You peer through the darkness, struggling to see, then increase your gamma just a bit. There is an abandoned feast just lying on a table. Its not one of Lydias home cooked meals, but it will do. You heal to 78 health. There are two paths before you: a wooden ladder and a sturdy ladder. Which do you choose?
+Request : Ladder
+Response: You move deeper into the cave. A waterfall cascades from a shaft above filling the chamber with cool mist. Dozens of cheese wheels are scattered around the room. You eat all of them with reckless abandon. Your health is now at 100. There are two ways forward: a decaying old door and a barely-lit mineshaft. Which do you choose?
+Request : Door
+Response: Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now
+Request : Skyrim
+Response: Welcome back to Skyrim, adventurer. You scroll through your Journal menu for a refresher on your quest. Ah, yes. You promised to help the people of the abandoned tower by clearing the nearby cave of evil. You were about to decide where to go. There are three paths forward: a pitch-black tunnel, a rope ladder, and a rusty hinged door. Which do you choose?
+Request : Door
+Response: Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now
+Request : Skyrim
+Response: Welcome back to Skyrim, adventurer. You scroll through your Journal menu for a refresher on your quest. Ah, yes. You promised to help the people of the abandoned tower by clearing the nearby cave of evil. You were about to decide where to go. There are three paths forward: a foggy deadwood path, a mine cart path, and a mushroom-covered tunnel. Which do you choose?
+Request : Tunnel
+Response: Sorry, I'm having trouble accessing your Skyrim Very Special Edition skill right now
+</pre>

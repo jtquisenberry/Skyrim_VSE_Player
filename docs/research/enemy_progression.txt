@@ -1,0 +1,121 @@
+Combined Level	Enemy
+3	Bandit
+3	Forsworn
+5	Small Frostbite Spider
+6	Draugr Thrall
+6	Large Mudcrab
+6	Skeleton Warlord
+7	Giant Mudcrab
+8	Adoring Fan
+8	Bandit Outlaw
+8	Mudcrab
+9	Flame Atronach
+9	Skeleton Warrior
+10	Death Hound
+11	Apprentice Conjurer
+11	Apprentice Mage
+11	Deranged Khajiit
+11	Sabre Cat
+12	Apprentice Fire Mage
+12	Apprentice Necromancer
+12	Apprentice Storm Mage
+12	Dremora Churl
+12	Restless Draugr
+14	Apprentice Ice Mage
+14	Ice Wolf
+14	Skeleton Warlock
+14	Wolf
+15	Skeever
+16	Forsworn Forager
+17	Falmer Skulker
+17	Spriggan
+17	Vampire
+18	Draugr Overlord
+18	Large Frostbite Spider
+20	Bandit Thug
+20	Draugr Warrior
+20	Falmer
+21	Disgraced City Guard
+21	Ice Wraith
+21	Werewolf
+27	Snowy Sabre Cat
+29	Dremora Caitiff
+30	Bear
+30	Chaurus
+32	Draugr Wight
+33	Gargoyle
+35	Bandit Highwayman
+35	Falmer Gloomlurker
+35	Forsworn Looter
+35	Thief
+36	Troll
+39	Draugr Wight Overlord
+40	Cave Bear
+40	Frost Atronach
+44	Giant
+44	Giant Frostbite Spider
+44	Renegade Imperial Soldier
+44	Renegade Storm Cloak
+45	Dragon
+46	Dark Brotherhood Assassin
+46	Spriggan Matron
+50	Bandit Plunderer
+50	Conjurer
+50	Dremora Kynval
+50	Falmer Nightprowler
+50	Ice Mage
+50	Necro Mage
+50	Storm Mage
+52	Fire Mage
+53	Blood Dragon
+53	Chaurus Reaper
+53	Snow Bear
+54	Vampire Mistwalker
+55	Hagraven
+56	Draugr Scourge
+59	Frost Troll
+62	Forsworn Pillager
+65	Draugr Scourge Lord
+68	Bandit Marauder
+68	Falmer Shadowmaster
+68	Imperial Gladiator
+71	Hulking Draugr
+74	Ascendant Conjurer
+74	Ascendant Necromancer
+74	Dremora Kynreeve
+74	Frost Wizard
+74	Ice Wizard
+74	Storm Wizard
+75	Fire Wizard
+77	Vampire Nightstalker
+78	Wispmother
+81	Bandit Chief
+82	Draugr Deathlord
+82	Frost Dragon
+82	Spriggan Earth Mother
+82	Storm Atronach
+88	Chaurus Hunter
+95	Forsworn Ravager
+97	Draugr Death Overlord
+98	Falmer Warmonger
+101	Dremora Markynaz
+101	Electromancer
+101	Pyromancer
+101	Thalmor Justiciar
+107	Ancient Vampire
+113	Ghost
+114	Cryomancer
+114	Master Conjurer
+123	Master Necromancer
+124	Elder Dragon
+125	Forsworn Warlord
+131	Arch Electromancer
+131	Arch Necromancer
+131	Dremora Valkynaz
+132	Arch Cryomancer
+132	Arch Pyromancer
+138	Arch Conjurer
+142	Dragon Priest
+144	Ancient Dragon
+145	Frost Giant
+147	Forsworn Briarheart

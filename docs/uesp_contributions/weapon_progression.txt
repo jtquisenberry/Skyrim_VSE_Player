@@ -1,0 +1,260 @@
+=====Weapon Progression=====
+The arms level is the earliest observed level where the specified weapon may be acquired. At most one weapon is acquired per level.
+
+{| class="wikitable"
+! Arms Level !! Weapon
+|-
+|1 || Dagger
+|-
+|3 || Flawless Iron Battleaxe
+|-
+|3 || Superior Iron Greatsword
+|-
+|6 || Legendary Iron Dagger of Sparks
+|-
+|6 || Legendary Iron War Axe
+|-
+|7 || Legendary Iron Battleaxe of Embers
+|-
+|7 || Legendary Iron Greatsword of Sparks
+|-
+|10 || Fine Steel Sword
+|-
+|10 || Steel Greatsword
+|-
+|10 || Steel Sword
+|-
+|11 || Fine Steel War Axe
+|-
+|11 || Superior Steel Sword
+|-
+|11 || Superior Steel War Axe
+|-
+|13 || Flawless Steel Dagger
+|-
+|13 || Flawless Steel Mace
+|-
+|15 || Legendary Steel Dagger
+|-
+|16 || Legendary Steel Greatsword of Embers
+|-
+|17 || Legendary Steel Mace of Burning
+|-
+|17 || Legendary Steel Sword of Arcing
+|-
+|17 || Legendary Steel War Axe of Burning
+|-
+|18 || Legendary Steel Battleaxe of Shocks
+|-
+|18 || Legendary Steel Dagger of Scorching
+|-
+|19 || Fine Orcish Battleaxe
+|-
+|19 || Orcish Battleaxe
+|-
+|19 || Orcish Sword
+|-
+|20 || Fine Orcish Dagger
+|-
+|20 || Fine Orcish Mace
+|-
+|20 || Superior Orcish Dagger
+|-
+|21 || Superior Orcish Battleaxe
+|-
+|21 || Superior Orcish Mace
+|-
+|22 || Epic Orcish Battleaxe
+|-
+|22 || Epic Orcish War Axe
+|-
+|24 || Legendary Orcish Mace
+|-
+|24 || Legendary Orcish War Axe of Arcing
+|-
+|25 || Legendary Orcish Battleaxe of Burning
+|-
+|25 || Legendary Orcish Dagger of Arcing
+|-
+|26 || Legendary Orcish Battleaxe of Scorching
+|-
+|26 || Legendary Orcish Mace of Thunderbolts
+|-
+|27 || Legendary Orcish Greatsword of Thunderbolts
+|-
+|28 || Dwarven Greatsword
+|-
+|28 || Dwarven Sword
+|-
+|29 || Fine Dwarven Sword
+|-
+|30 || Superior Dwarven Dagger
+|-
+|31 || Flawless Dwarven Battleaxe
+|-
+|31 || Flawless Dwarven Mace
+|-
+|33 || Legendary Dwarven Dagger
+|-
+|33 || Legendary Dwarven Sword
+|-
+|34 || Legendary Dwarven Battleaxe of Arcing
+|-
+|34 || Legendary Dwarven Dagger of Arcing
+|-
+|35 || Legendary Dwarven Dagger of Shocks
+|-
+|36 || Legendary Dwarven Battleaxe of Thunderbolts
+|-
+|36 || Legendary Dwarven Mace of Thunderbolts
+|-
+|38 || Fine Nordh War Axe
+|-
+|39 || Superior Nordh Dagger
+|-
+|40 || Flawless Nordh Sword
+|-
+|41 || Epic Nordh Dagger
+|-
+|42 || Legendary Nordh Sword of Shocks
+|-
+|43 || Legendary Nordh Battleaxe of Shocks
+|-
+|43 || Legendary Nordh Mace of Thunderbolts
+|-
+|45 || Elven Sword
+|-
+|45 || Legendary Nordh War Axe
+|-
+|46 || Fine Elven Battleaxe
+|-
+|47 || Fine Elven Greatsword
+|-
+|47 || Superior Elven Dagger
+|-
+|50 || Epic Elven Dagger
+|-
+|51 || Legendary Elven Dagger
+|-
+|51 || Legendary Elven Sword of Scorching
+|-
+|52 || Legendary Elven Mace of Shocks
+|-
+|52 || Legendary Elven Sword of Flames
+|-
+|57 || Superior Glass War Axe
+|-
+|58 || Epic Glass War Axe
+|-
+|59 || Epic Glass Dagger
+|-
+|59 || Legendary Glass War Axe
+|-
+|60 || Legendary Glass Greatsword
+|-
+|62 || Legendary Glass Dagger of Flames
+|-
+|62 || Legendary Glass Sword of Flames
+|-
+|62 || Legendary Glass War Axe of Flames
+|-
+|63 || Legendary Glass Mace
+|-
+|63 || Legendary Glass Sword
+|-
+|64 || Fine Stalhrim Mace
+|-
+|64 || Fine Stalhrim War Axe
+|-
+|65 || Fine Stalhrim Greatsword
+|-
+|65 || Superior Stalhrim Greatsword
+|-
+|66 || Superior Stalhrim Dagger
+|-
+|66 || Superior Stalhrim War Axe
+|-
+|67 || Flawless Stalhrim Dagger
+|-
+|68 || Epic Stalhrim Battleaxe
+|-
+|68 || Legendary Stalhrim War Axe
+|-
+|69 || Legendary Stalhrim Battleaxe
+|-
+|69 || Legendary Stalhrim Dagger
+|-
+|70 || Legendary Stalhrim Sword of Thunderbolts
+|-
+|71 || Legendary Stalhrim Sword
+|-
+|72 || Legendary Stalhrim Battleaxe of Storms
+|-
+|72 || Legendary Stalhrim Dagger of Storms
+|-
+|73 || Ebony Sword
+|-
+|73 || Ebony War Axe
+|-
+|75 || Flawless Ebony Dagger
+|-
+|75 || Superior Ebony Greatsword
+|-
+|76 || Epic Ebony Dagger
+|-
+|77 || Epic Ebony War Axe
+|-
+|78 || Legendary Ebony Dagger
+|-
+|78 || Legendary Ebony Mace of Thunderbolts
+|-
+|79 || Legendary Ebony Greatsword
+|-
+|80 || Legendary Ebony War Axe
+|-
+|80 || Legendary Ebony War Axe of the Inferno
+|-
+|81 || Daedric Sword
+|-
+|81 || Legendary Ebony War Axe of Storms
+|-
+|82 || Daedric Greatsword
+|-
+|82 || Fine Daedric Greatsword
+|-
+|83 || Superior Daedric Dagger
+|-
+|85 || Epic Daedric War Axe
+|-
+|85 || Flawless Daedric Mace
+|-
+|86 || Legendary Daedric Mace
+|-
+|87 || Legendary Daedric Greatsword of Flames
+|-
+|89 || Legendary Daedric Battleaxe of Storms
+|-
+|89 || Legendary Daedric War Axe
+|-
+|90 || Legendary Daedric Sword of Storms
+|-
+|92 || Fine Dragonbone Dagger
+|-
+|92 || Superior Dragonbone War Axe
+|-
+|93 || Flawless Dragonbone Battleaxe
+|-
+|93 || Flawless Dragonbone Dagger
+|-
+|94 || Flawless Dragonbone Greatsword
+|-
+|95 || Legendary Dragonbone War Axe
+|-
+|96 || Legendary Dragonbone Battleaxe
+|-
+|97 || Legendary Dragonbone Mace
+|-
+|98 || Legendary Dragonbone Sword
+|-
+|99 || UNDEFINED UNDEFINED UNDEFINED UNDEFINED UNDEFINED
+|}

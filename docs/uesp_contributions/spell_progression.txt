@@ -1,0 +1,68 @@
+=====Spell Progression=====
+The spell level is the earliest observed level where the specified spell is available.
+
+{| class="wikitable"
+! Spell Level !! Spell
+|-
+|1 || Flames
+|-
+|2 || Frostbite
+|-
+|3 || Raised Zombie
+|-
+|4 || Sparks
+|-
+|5 || Conjured Familiar
+|-
+|10 || Lightning Bolt
+|-
+|10 || Firebolt
+|-
+|10 || Ice Spike
+|-
+|15 || Bound Sword
+|-
+|20 || Lightning Rune
+|-
+|20 || Frost Rune
+|-
+|20 || Fire Rune
+|-
+|25 || Bound Bow
+|-
+|30 || Ice Storm
+|-
+|30 || Fireball
+|-
+|30 || Chain Lightning
+|-
+|45 || Conjured Storm Atronach
+|-
+|50 || Flame Cloak
+|-
+|50 || Frost Cloak
+|-
+|50 || Lightning Cloak
+|-
+|55 || Whirlwind Cloak
+|-
+|60 || Incinerate
+|-
+|60 || Thunderbolt
+|-
+|60 || Icy Spear
+|-
+|65 || Flaming Familiar
+|-
+|70 || Wall of Storms
+|-
+|75 || Spectral Arrow
+|-
+|80 || Fire Storm
+|-
+|80 || Lightning Storm
+|-
+|80 || Blizzard
+|-
+|99 || Summoned Arniel's Shade
+|}
